@@ -1,0 +1,154 @@
+{
+  "name": "cold calling",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": "gid=0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [128, 0],
+      "id": "node_google_sheets_get",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REDACTED",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [items[10]];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [336, 0],
+      "id": "node_code_select"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "YOUR_CALL_API_ENDPOINT",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer YOUR_API_KEY" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "assistantId": "YOUR_ASSISTANT_ID",
+          "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+          "customer": {
+            "number": "+1234567890",
+            "name": "Customer Name",
+            "numberE164CheckEnabled": false
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [752, 0],
+      "id": "node_http_request"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-add-to-sheets",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 224],
+      "id": "node_webhook"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": 1985605099,
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $('Get row(s) in sheet').item.json.title }}",
+            "category": "={{ $('Get row(s) in sheet').item.json.category }}",
+            "address": "={{ $('Get row(s) in sheet').item.json.address }}",
+            "website": "={{ $('Get row(s) in sheet').item.json.website }}",
+            "phone": "={{ $('Get row(s) in sheet').item.json.phone }}",
+            "emails": "={{ $('Get row(s) in sheet').item.json.emails }}"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [960, 0],
+      "id": "node_google_sheets_append"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": "gid=0"
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [1152, 0],
+      "id": "node_google_sheets_delete"
+    },
+    {
+      "parameters": {
+        "sendTo": "YOUR_EMAIL",
+        "subject": "={{ $json.body.email_subjectt }}",
+        "emailType": "text",
+        "message": "={{ $json.body.email_content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [208, 416],
+      "id": "node_gmail",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REDACTED",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours" }]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-80, 0],
+      "id": "node_schedule"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => { let phone = String(item.json.phone); if (!phone.startsWith('+')) { phone = '+' + phone; } item.json.phone = phone; return item; });"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [528, 0],
+      "id": "node_code_format_phone"
+    }
+  ],
+  "connections": {
+    "Get row(s) in sheet": { "main": [[{ "node": "Code", "type": "main", "index": 0 }]] },
+    "Code": { "main": [[{ "node": "Code1", "type": "main", "index": 0 }]] },
+    "Webhook": { "main": [[{ "node": "Append row in sheet2", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "REDACTED"
+}
