@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>M AUTOMATION — n8n Automation Experts</title>
+  <meta name="description" content="M AuTOMATION - Enterprise-grade n8n workflow automation, integrations, monitoring and custom solutions to save time and scale operations." />
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------
+       Design system (brand)
+       Deep corporate blue + cyan accent palette
+       ------------------------- */
+    :root{
+      --page-bg: #f6f8fb;
+      --surface: #ffffff;
+      --muted: #6b7280;
+      --ink: #0f1724;
+
+      --brand-primary: #1e3a8a; /* deep blue */
+      --brand-primary-600: #17307a;
+      --brand-accent: #06b6d4;  /* cyan */
+      --brand-accent-700: #0891b2;
+
+      --card-shadow: 0 10px 30px rgba(16,24,40,0.06);
+      --glass: rgba(255,255,255,0.6);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 18px;
+
+      --container-width: 1120px;
+      --space-xxs: 6px;
+      --space-xs: 10px;
+      --space-sm: 16px;
+      --space-md: 24px;
+      --space-lg: 40px;
+
+      --transition-fast: 180ms ease;
+    }
+
+    /* -------------------------
+       Reset + base
+       -------------------------*/
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--page-bg), #eef3fb 80%);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      -webkit-tap-highlight-color:transparent;
+    }
+    img{max-width:100%;display:block}
+
+    /* -------------------------
+       Layout
+       -------------------------*/
+    .wrap{
+      max-width:var(--container-width);
+      margin:0 auto;
+      padding: calc(var(--space-lg)) var(--space-md);
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding: calc(var(--space-sm) * 0.25) 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:inherit;
+    }
+    .logo {
+      width:52px;
+      height:52px;
+      border-radius:12px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-600));
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 6px 18px rgba(30,58,138,0.15);
+      color:white; font-weight:700; font-size:18px;
+      letter-spacing:0.6px;
+    }
+    .brand h1{font-size:1.06rem;margin:0}
+    nav{display:flex; gap:22px; align-items:center}
+    nav a{color:var(--muted); text-decoration:none; font-weight:600;}
+    .cta { background:var(--brand-accent); color:white; padding:10px 16px; border-radius:10px; border:0; font-weight:700; cursor:pointer; transition:all var(--transition-fast); }
+    .cta:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(6,182,212,0.12)}
+
+    /* -------------------------
+       Hero
+       -------------------------*/
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:32px;
+      align-items:center;
+      padding: calc(var(--space-lg)) 0;
+    }
+    .hero .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(6,182,212,0.08);color:var(--brand-accent);font-weight:700;margin-bottom:12px}
+    .hero h2{font-size:2.2rem;margin:0 0 14px 0;line-height:1.05}
+    .hero p{color:var(--muted);margin:0 0 20px 0}
+    .hero .actions{display:flex; gap:12px}
+    .hero .hero-card{
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      padding:18px;border-radius:var(--radius-lg);
+      box-shadow:var(--card-shadow);
+      border:1px solid rgba(27,38,91,0.04);
+    }
+    .hero .stat{
+      display:flex; gap:12px; align-items:center; margin-bottom:12px;
+    }
+    .stat .num{font-weight:800;color:var(--brand-primary);font-size:1.25rem}
+    .small{font-size:0.92rem;color:var(--muted)}
+
+    /* -------------------------
+       Services
+       -------------------------*/
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .card{
+      background:var(--surface);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:var(--card-shadow);
+      border:1px solid rgba(16,24,40,0.03);
+    }
+    .card h3{margin:0 0 8px 0}
+    .card p{margin:0;color:var(--muted)}
+
+    /* -------------------------
+       Why choose / case studies / process
+       -------------------------*/
+    .section{
+      margin-top:36px;
+      display:flex;
+      gap:24px;
+      align-items:flex-start;
+    }
+    .left-rail{flex:1}
+    .right-rail{width:380px}
+    .feature{
+      display:flex; gap:14px; margin-bottom:14px; align-items:flex-start;
+    }
+    .feature .dot{
+      width:38px;height:38px;border-radius:8px;background:var(--brand-primary);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+    }
+
+    /* -------------------------
+       Pricing
+       -------------------------*/
+    .pricing{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .price-card{
+      padding:20px;border-radius:14px;background:linear-gradient(180deg,#ffffff,#f7fbff);
+      border:1px solid rgba(16,24,40,0.04); box-shadow:var(--card-shadow)
+    }
+    .price-card .price{font-weight:800;font-size:1.6rem;color:var(--brand-primary);}
+
+    /* -------------------------
+       Contact form
+       -------------------------*/
+    form.contact{
+      display:grid; gap:10px; margin-top:12px;
+    }
+    input[type="text"], input[type="email"], textarea{
+      padding:12px;border-radius:10px;border:1px solid #e8eef8;background:#fff; font-size:0.95rem;
+      outline: none;
+    }
+    textarea{min-height:120px; resize:vertical}
+    .btn-primary{ background:var(--brand-primary); color:white; padding:12px 18px; border-radius:10px; font-weight:700; border:0; cursor:pointer; transition:all var(--transition-fast)}
+    .btn-primary:hover{background:var(--brand-primary-600); transform:translateY(-2px)}
+
+    /* -------------------------
+       Footer
+       ------------------------- */
+    footer{margin-top:48px; padding:28px 0; color:var(--muted); border-top:1px solid rgba(16,24,40,0.04)}
+
+    /* small screens */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr; text-align:center}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .pricing{grid-template-columns:1fr}
+      .right-rail{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div id="n8n-chat"></div>
+
+
+  <div class="wrap">
+    <!-- Header -->
+    <header>
+      <a class="brand" href="#">
+        <div class="logo">M</div>
+        <div>
+          <h1>M AuTOMATION</h1>
+          <div style="font-size:0.86rem;color:var(--muted);margin-top:2px">Enterprise n8n Workflow Automation</div>
+        </div>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#cases">Case Studies</a>
+        <a href="#pricing">Pricing</a>
+        <button class="cta" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" aria-label="Hero">
+      <div>
+        <span class="eyebrow">Trusted · Secure · Scalable</span>
+        <h2>Automate the work that slows your team down</h2>
+        <p>We design, build and maintain n8n workflows that integrate tools, eliminate manual steps and scale with your business. Fast delivery, enterprise security, and measurable ROI.</p>
+
+        <div class="actions">
+          <button class="btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+          <button class="cta" onclick="document.getElementById('casesSection').scrollIntoView({behavior:'smooth'})">See Use Cases</button>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:18px; align-items:center">
+          <div style="background:var(--surface);padding:10px 12px;border-radius:10px;box-shadow:var(--card-shadow);border:1px solid rgba(16,24,40,0.03)">
+            <div style="font-size:0.82rem;color:var(--muted)">Avg time saved</div>
+            <div style="font-weight:800;font-size:1.2rem;color:var(--brand-primary)">18 hrs / week</div>
+          </div>
+          <div style="background:var(--surface);padding:10px 12px;border-radius:10px;box-shadow:var(--card-shadow);border:1px solid rgba(16,24,40,0.03)">
+            <div style="font-size:0.82rem;color:var(--muted)">Integrations</div>
+            <div style="font-weight:800;font-size:1.2rem;color:var(--brand-primary)">100+</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:0.86rem;color:var(--muted)">Live Workflow</div>
+              <div style="font-weight:800;color:var(--brand-primary)">Lead enrichment • CRM sync</div>
+            </div>
+            <div style="text-align:right">
+              <div class="small">Status</div>
+              <div style="font-weight:800;color:var(--brand-accent)">Healthy</div>
+            </div>
+          </div>
+
+          <div style="height:10px;background:#eef6fb;border-radius:8px;overflow:hidden">
+            <div style="width:86%;height:10px;background:linear-gradient(90deg,var(--brand-primary),var(--brand-accent));"></div>
+          </div>
+
+          <div class="small">Recent runs: <strong>2,412</strong> · Errors: <strong>0.2%</strong></div>
+
+          <div style="display:flex;gap:8px; margin-top:6px">
+            <button class="btn-primary">Request Demo</button>
+            <button class="cta" onclick="openChat()">Chat with us</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="section">
+      <div class="left-rail">
+        <h2 style="margin-top:0">What we do</h2>
+        <p class="small">Custom-tailored automation services built on n8n for startups to enterprises. Reduce manual work, increase reliability, and connect your tools.</p>
+
+        <div class="grid" style="margin-top:16px">
+          <div class="card">
+            <h3>Workflow Design</h3>
+            <p>We map your processes, produce clear specs, and design resilient n8n flows that match your business rules.</p>
+          </div>
+          <div class="card">
+            <h3>Integrations</h3>
+            <p>Connect CRMs, Google Workspace, Slack, APIs and internal systems. We handle auth, retries and error handling.</p>
+          </div>
+          <div class="card">
+            <h3>Monitoring & Support</h3>
+            <p>24/7 monitoring, alerting, scheduled maintenance and performance tuning so automations always run smoothly.</p>
+          </div>
+          <div class="card">
+            <h3>Custom Nodes & Extensions</h3>
+            <p>Need a custom n8n node or bespoke connector? We develop, test and deploy secure extensions for your stack.</p>
+          </div>
+          <div class="card">
+            <h3>Training & Handover</h3>
+            <p>We train your team, create docs and handover playbooks so you keep full control of your workflows.</p>
+          </div>
+          <div class="card">
+            <h3>Audit & Security</h3>
+            <p>We audit for data flow, permissions, and compliance to ensure enterprise-grade security and governance.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="right-rail card">
+        <h3>Why M AuTOMATION?</h3>
+        <div class="feature">
+          <div class="dot">S</div>
+          <div>
+            <div style="font-weight:700">Speed to value</div>
+            <div class="small">Rapid discovery & pilot to prove ROI in days, not months.</div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="dot">T</div>
+          <div>
+            <div style="font-weight:700">Transparent pricing</div>
+            <div class="small">Clear scope + predictable costs — no surprise bills.</div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="dot">E</div>
+          <div>
+            <div style="font-weight:700">Enterprise ready</div>
+            <div class="small">Authentication, logging, retries, and data governance built-in.</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="cases" style="margin-top:30px">
+      <h2>Case studies</h2>
+      <p class="small">Selected projects showing measurable impact.</p>
+
+      <div style="display:grid; gap:18px; margin-top:12px">
+        <div style="display:flex; gap:18px; align-items:stretch">
+          <div style="flex:1" class="card">
+            <h3>Lead routing & enrichment — SaaS</h3>
+            <p class="small">Automated lead ingestion from webhooks, enrichment from 3rd-party APIs, dedupe and CRM sync.</p>
+            <ul style="margin-top:10px;color:var(--muted)">
+              <li>Reduced manual triage by 95%</li>
+              <li>Sales time saved: ~14 hours/week</li>
+              <li>Integration latency < 200ms</li>
+            </ul>
+          </div>
+          <div style="width:260px" class="card">
+            <h3>Result</h3>
+            <div style="font-weight:800;font-size:1.4rem;color:var(--brand-primary)">x10</div>
+            <div class="small">faster processing · fewer errors</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:18px; align-items:stretch">
+          <div style="flex:1" class="card">
+            <h3>Invoice automation — Finance</h3>
+            <p class="small">Invoice capture → OCR → validation → payment trigger & accounting system sync (reducing manual entry).</p>
+            <ul style="margin-top:10px;color:var(--muted)">
+              <li>Cut processing time by 80%</li>
+              <li>Reduced late payments by 60%</li>
+            </ul>
+          </div>
+          <div style="width:260px" class="card">
+            <h3>Result</h3>
+            <div style="font-weight:800;font-size:1.4rem;color:var(--brand-primary)">80%</div>
+            <div class="small">time reduction</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process & Pricing -->
+    <section style="margin-top:30px; display:grid; grid-template-columns:1fr 420px; gap:22px; align-items:start">
+      <div>
+        <h2>Our process</h2>
+        <div style="display:flex; gap:12px; margin-top:12px; align-items:flex-start">
+          <div style="width:6px;height:6px;background:var(--brand-primary);border-radius:3px;margin-top:8px"></div>
+          <div>
+            <div style="font-weight:700">Discover</div>
+            <div class="small">Workshops to map processes and define success metrics.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:12px; align-items:flex-start">
+          <div style="width:6px;height:6px;background:var(--brand-primary);border-radius:3px;margin-top:8px"></div>
+          <div>
+            <div style="font-weight:700">Design & Build</div>
+            <div class="small">Prototypes & tests, then production-grade flows with logging and retries.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:12px; align-items:flex-start">
+          <div style="width:6px;height:6px;background:var(--brand-primary);border-radius:3px;margin-top:8px"></div>
+          <div>
+            <div style="font-weight:700">Launch & Monitor</div>
+            <div class="small">Alerts, dashboards, and SLA monitoring for confidence in production.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:12px; align-items:flex-start">
+          <div style="width:6px;height:6px;background:var(--brand-primary);border-radius:3px;margin-top:8px"></div>
+          <div>
+            <div style="font-weight:700">Optimize</div>
+            <div class="small">Continuous improvement, cost optimizations and support plans.</div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <h3 id="pricing">Pricing</h3>
+        <div class="pricing">
+          <div class="price-card">
+            <div class="small">Starter</div>
+            <div class="price">$1,500</div>
+            <div class="small">Pilot • Up to 2 workflows • 2 weeks</div>
+            <div style="margin-top:12px"><button class="btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">Start Pilot</button></div>
+          </div>
+
+          <div class="price-card">
+            <div class="small">Pro</div>
+            <div class="price">$4,500</div>
+            <div class="small">Production • 5 workflows • Monitoring</div>
+            <div style="margin-top:12px"><button class="btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">Get Pro</button></div>
+          </div>
+
+          <div class="price-card">
+            <div class="small">Enterprise</div>
+            <div class="price">Custom</div>
+            <div class="small">Unlimited workflows • SSO • SLA • Onsite</div>
+            <div style="margin-top:12px"><button class="btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">Contact Sales</button></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Contact -->
+    <section id="contactSection" style="margin-top:36px">
+      <h2>Get started</h2>
+      <p class="small">Tell us about your automation needs — we'll reply within one business day.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 420px; gap:20px; margin-top:14px; align-items:start">
+        <div class="card">
+          <form class="contact" onsubmit="handleContact(event)">
+            <label>
+              <div style="font-weight:700">Name</div>
+              <input type="text" name="name" required placeholder="Your full name" />
+            </label>
+
+            <label>
+              <div style="font-weight:700">Company / Email</div>
+              <input type="email" name="email" required placeholder="you@company.com" />
+            </label>
+
+            <label>
+              <div style="font-weight:700">Describe the automation</div>
+              <textarea name="desc" placeholder="What tool do you want to connect? What is the current manual process?" required></textarea>
+            </label>
+
+            <div style="display:flex; gap:10px">
+              <button type="submit" class="btn-primary">Request Quote</button>
+              <button type="button" class="cta" onclick="openChat()">Chat with us</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="card">
+          <h3>Contact</h3>
+          <p class="small">Email: <strong>hello@mautomation.com</strong><br/>Phone: <strong>+92 311 2043445</strong></p>
+          <div style="margin-top:14px">
+            <strong>Office</strong>
+            <div class="small">Karachi, Pakistan</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+        <div style="display:flex; gap:12px; align-items:center">
+          <div class="logo" style="width:44px;height:44px;font-size:16px">M</div>
+          <div>
+            <div style="font-weight:700">M AuTOMATION</div>
+            <div class="small">Enterprise n8n automation</div>
+          </div>
+        </div>
+        <div style="color:var(--muted)">© <span id="year"></span> M AuTOMATION · All rights reserved</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /* Basic interactivity + accessible behaviors */
+
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Contact form handler (demo)
+    function handleContact(e){
+      e.preventDefault();
+      const form = e.target;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const desc = form.desc.value.trim();
+      if(!name||!email||!desc) return alert('Please fill all fields');
+      // In real app: POST to API
+      alert('Thanks, '+name+'. We received your request and will follow up via ' + email + '.');
+      form.reset();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // Placeholder function for openChat (since chat is removed)
+    function openChat(){
+      // Chat functionality has been removed
+      alert('Chat functionality has been removed. Please use the contact form instead.');
+    }
+  </script>
+</body>
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<script type="module">
+	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+	createChat({
+    webhookUrl: 'https://n8n.srv940619.hstgr.cloud/webhook/af19a6c0-f2da-45f9-abea-3ae23f48df20/chat',
+    webhookConfig: {
+        method: 'POST',
+        headers: {}
+    },
+    target: '#n8n-chat',
+    mode: 'window', // Options: 'window', 'fullscreen', 'embedded'
+    
+    // Chat appearance
+    theme: {
+        primaryColor: '#d2d4d9', // Your brand primary color
+        textColor: '#0f1724',
+        backgroundColor: '#ffffff',
+        borderRadius: '0px'
+    },
+    
+    // Window positioning and size
+    initialWidth: 400,
+    initialHeight: 600,
+    position: 'bottom-right', // Options: 'bottom-right', 'bottom-left', 'top-right', 'top-left'
+    
+    // Chat behavior
+    chatInputKey: 'chatInput',
+    chatSessionKey: 'sessionId',
+    loadPreviousSession: true,
+    metadata: {},
+    showWelcomeScreen: true,
+    defaultLanguage: 'en',
+    
+    // Custom messages
+    initialMessages: [
+        'Hi there! 👋',
+        'I\'m here to help with your automation questions.',
+        'What would you like to know about n8n workflows?'
+    ],
+    
+    // Internationalization
+    i18n: {
+        en: {
+            title: 'M AUTOMATION Support',
+            subtitle: 'GET INSTANT HELP WITH YOUR AUTOMATION NEEDS',
+            footer: 'Powered by M ATOMATION',
+            getStarted: 'Start Chat',
+            inputPlaceholder: 'Ask about workflows, integrations...',
+            sendButtonText: 'Send',
+            closeButtonText: 'Close Chat'
+        },
+    },
+    
+    enableStreaming: false,
+    
+    // Custom CSS classes (if supported)
+    customClasses: {
+        container: 'custom-chat-container',
+        header: 'custom-chat-header',
+        messages: 'custom-chat-messages',
+        input: 'custom-chat-input'
+    }
+});
+
+
+</script>
+</html>
